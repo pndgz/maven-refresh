@@ -1,17 +1,25 @@
 # maven-refresh
 
-``````
+## Basic Usage
+
+```
 buildscript {
     repositories {
-        mavenLocal()
+        jcenter()
     }
     dependencies {
-        classpath group: 'com.github.pndgz', name: 'maven-refresh', version: '1.0-SNAPSHOT'
+        classpath group: 'com.github.pndgz', name: 'maven-refresh', version: '1.0.0'
     }
 }
 apply plugin: 'com.github.pndgz.maven-refresh'
 
-mavenRefresh {
+```
 
+## Custom Local Repository
+```
+
+mavenRefresh {
+    localRepository="YourLocalMavenRepository"
 }
+
 ```
