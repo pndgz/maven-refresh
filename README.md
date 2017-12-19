@@ -1,5 +1,7 @@
 # maven-refresh
 
+Clean the SNAPSHOT dependencies of your project in Local Maven Repository (such as ~/.m2/repository).
+
 ## Basic Usage
 
 Using plugins.gradle.org
