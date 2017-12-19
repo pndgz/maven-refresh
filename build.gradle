@@ -1,27 +1,41 @@
 group 'com.github.pndgz'
-version '1.0-SNAPSHOT'
+version '1.0.0'
 
+def siteUrl = 'https://github.com/pndgz/maven-refresh'
+def gitUrl = 'https://github.com/pndgz/maven-refresh.git'
 
 buildscript {
     repositories {
-        mavenLocal()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
-        classpath group: 'com.github.pndgz', name: 'maven-refresh', version: '1.0-SNAPSHOT'
+        classpath "com.gradle.publish:plugin-publish-plugin:0.9.9"
     }
-}
-apply plugin: 'com.github.pndgz.maven-refresh'
-
-mavenRefresh {
-
 }
 
 apply plugin: 'groovy'
 apply plugin: 'maven'
+apply plugin: "com.gradle.plugin-publish"
 
 repositories {
     mavenLocal()
-    maven { url 'http://nexus.heywoon.com/content/groups/public/' }
+    jcenter()
+}
+
+pluginBundle {
+    website = siteUrl
+    vcsUrl = gitUrl
+    description = 'Clean mavenLocal SNAPSHOT jar'
+    tags = ['mavenLocal', 'clean', 'SNAPSHOT']
+
+    plugins {
+        mavenRefreshPlugin {
+            id = 'com.github.pndgz.maven-refresh'
+            displayName = 'Refresh Maven Local SNAPSHOT plugin'
+        }
+    }
 }
 
 dependencies {
