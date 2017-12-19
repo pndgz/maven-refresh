@@ -1,42 +1,45 @@
 group 'com.github.pndgz'
-version '1.0.0'
+version '1.0.1'
 
 def siteUrl = 'https://github.com/pndgz/maven-refresh'
 def gitUrl = 'https://github.com/pndgz/maven-refresh.git'
 
 buildscript {
     repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
+        jcenter()
     }
     dependencies {
-        classpath "com.gradle.publish:plugin-publish-plugin:0.9.9"
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
     }
 }
 
 apply plugin: 'groovy'
 apply plugin: 'maven'
-apply plugin: "com.gradle.plugin-publish"
 
 repositories {
     mavenLocal()
     jcenter()
 }
 
-pluginBundle {
-    website = siteUrl
-    vcsUrl = gitUrl
-    description = 'Clean mavenLocal SNAPSHOT jar'
-    tags = ['mavenLocal', 'clean', 'SNAPSHOT']
+apply plugin: 'com.jfrog.bintray'
+def libName = "maven-refresh"
 
-    plugins {
-        mavenRefreshPlugin {
-            id = 'com.github.pndgz.maven-refresh'
-            displayName = 'Refresh Maven Local SNAPSHOT plugin'
-        }
+bintray {
+    user = "${bintrayUser}"
+    key = "${bintrayApikey}"
+    configurations = ['archives']
+    pkg {
+        repo = "countstar"
+        name = libName
+        desc = 'Refresh Maven Local SNAPSHOT plugin'
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
     }
 }
+
 
 dependencies {
     compile gradleApi()

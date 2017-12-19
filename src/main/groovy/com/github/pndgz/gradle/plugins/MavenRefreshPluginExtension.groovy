@@ -6,17 +6,13 @@ package com.github.pndgz.gradle.plugins
 class MavenRefreshPluginExtension {
 
     String localRepository
-    List<String> dependencies = new ArrayList<>()
 
     MavenRefreshPluginExtension() {
-        localRepository = System.properties['user.home'] + "/.m2/repository/"
+        localRepository = System.properties['user.home'] + File.separator + ".m2" + File.separator + "repository" + File.separator
     }
 
     void setLocalRepository(String localRepository) {
         this.localRepository = localRepository
     }
 
-    void setDependencies(List<String> dependencies) {
-        this.dependencies = dependencies
-    }
 }
